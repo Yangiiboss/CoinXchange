@@ -1,0 +1,7 @@
+streamlit
+requests
+web3
+qrcode[pil]
+pandas
+numpy
+watchdog
