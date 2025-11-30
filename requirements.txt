@@ -1,7 +1,8 @@
 streamlit
-requests
 web3
-qrcode[pil]
+requests
 pandas
-numpy
+python-dotenv
+bcrypt
+qrcode[pil]
 watchdog

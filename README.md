@@ -1,13 +1,13 @@
-# NairaAI v2.0 💸
+# NairaAI 2.0 💸
 
-The fastest Crypto-to-Naira off-ramp app. Built with Streamlit, Web3, and AI.
+The ultimate Crypto-to-Naira off-ramp. Automated, secure, and rate-optimized.
 
 ## Features
-- **Instant Off-Ramp**: Convert USDT, BTC, ETH, etc., to Naira instantly.
-- **Dark Premium UI**: Sleek, modern interface.
-- **Live Rates**: Fetches real-time rates from Transak Staging (with robust fallbacks).
-- **Web3 Integration**: Monitors BSC deposits.
-- **Simulation Mode**: Fully functional demo mode for testing without real funds.
+- **Smart Rate Engine**: Scans Binance, Transak, Breet, and YellowCard to find the best rate.
+- **Shared Wallet Architecture**: Single contract for all deposits (`contract.sol`).
+- **Instant Payouts**: Integrated with Paystack for bank transfers.
+- **User Accounts**: Save your bank details for one-click withdrawals.
+- **Secure**: SQLite database + Password hashing.
 
 ## 🚀 Quick Start (Local)
 
@@ -21,20 +21,21 @@ The fastest Crypto-to-Naira off-ramp app. Built with Streamlit, Web3, and AI.
    streamlit run app.py
    ```
 
+3. **Login**
+   - Create a new account on the Signup page.
+
 ## 🌐 Deploy to Render.com (Free Tier)
 
-1. **Push this code to GitHub**.
-2. Go to [Render Dashboard](https://dashboard.render.com/).
-3. Click **New +** -> **Web Service**.
-4. Connect your GitHub repository.
-5. Use the following settings:
+1. **Push to GitHub**.
+2. **New Web Service** on Render.
+3. **Settings**:
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `streamlit run app.py`
-6. Click **Deploy Web Service**.
+   - **Environment Variables**:
+     - `PAYSTACK_SECRET_KEY`: Your Paystack Key (or use mock)
+     - `BSC_RPC_URL`: `https://bsc-dataseed.binance.org/`
 
-Your app will be live in minutes!
-
-## 🛠 Tech Stack
-- **Frontend**: Streamlit
-- **Blockchain**: Web3.py (BSC)
-- **APIs**: Transak Staging, Paystack (Mock)
+## 📂 Project Structure
+- `app.py`: Main application logic (Auth, Rates, UI).
+- `contract.sol`: Solidity contract for receiving payments.
+- `requirements.txt`: Python dependencies.
