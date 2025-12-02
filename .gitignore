@@ -3,3 +3,9 @@ __pycache__/
 *.db
 .env
 .DS_Store
+node_modules/
+.next/
+out/
+build/
+.vercel/
+*.log

@@ -1,41 +1,51 @@
-# NairaAI 2.0 💸
+# NairaAI 2.0 (Next.js + Python) 🚀
 
-The ultimate Crypto-to-Naira off-ramp. Automated, secure, and rate-optimized.
+The final, production-ready NairaAI 2.0. Built with Next.js 14 (Frontend) and Python (Backend) in a single codebase, optimized for Vercel.
 
-## Features
-- **Smart Rate Engine**: Scans Binance, Transak, Breet, and YellowCard to find the best rate.
-- **Shared Wallet Architecture**: Single contract for all deposits (`contract.sol`).
-- **Instant Payouts**: Integrated with Paystack for bank transfers.
-- **User Accounts**: Save your bank details for one-click withdrawals.
-- **Secure**: SQLite database + Password hashing.
+## 🛠 Tech Stack
+- **Frontend**: Next.js 14 (App Router), Tailwind CSS, Framer Motion, TypeScript.
+- **Backend**: Python Serverless Functions (`/api/index.py`).
+- **Database**: MongoDB (Mongoose).
+- **Auth**: NextAuth.js.
 
-## 🚀 Quick Start (Local)
+## 📂 Project Structure
+- `app/`: Next.js Frontend.
+- `api/`: Python Backend (Vercel Serverless).
+- `components/`: UI Components.
+- `public/`: Static Assets.
 
-1. **Install Dependencies**
+## 🚀 One-Click Deploy to Vercel
+
+1. **Push to GitHub**.
+2. **Import Project** in Vercel.
+3. **Settings**:
+   - Framework Preset: **Next.js**
+   - Root Directory: `./`
+   - Build Command: `next build` (Default)
+   - Install Command: `npm install` (Default)
+4. **Environment Variables**:
+   - `NEXTAUTH_SECRET`: Generate one (`openssl rand -base64 32`)
+   - `NEXTAUTH_URL`: Your Vercel URL (e.g. `https://naira-ai.vercel.app`)
+   - `SUPABASE_URL`: Your Supabase Project URL
+   - `SUPABASE_ANON_KEY`: Your Supabase Anon Key
+
+## 💻 Local Development
+
+1. **Install JS Dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Install Python Dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
 
-2. **Run the App**
+3. **Run Development Server**:
    ```bash
-   streamlit run app.py
+   npm run dev
    ```
+   (Note: You need to run the Python backend separately or use `vercel dev` CLI for full integration locally).
 
-3. **Login**
-   - Create a new account on the Signup page.
-
-## 🌐 Deploy to Render.com (Free Tier)
-
-1. **Push to GitHub**.
-2. **New Web Service** on Render.
-3. **Settings**:
-   - **Build Command**: `pip install -r requirements.txt`
-   - **Start Command**: `streamlit run app.py`
-   - **Environment Variables**:
-     - `PAYSTACK_SECRET_KEY`: Your Paystack Key (or use mock)
-     - `BSC_RPC_URL`: `https://bsc-dataseed.binance.org/`
-
-## 📂 Project Structure
-- `app.py`: Main application logic (Auth, Rates, UI).
-- `contract.sol`: Solidity contract for receiving payments.
-- `requirements.txt`: Python dependencies.
+## 🐍 Python Backend
+The Python logic resides in `api/index.py`. Vercel automatically detects this as a serverless function and maps it to `/api/py/*` via `vercel.json` rewrites.

@@ -1,8 +1,4 @@
-streamlit
+flask
 web3
 requests
-pandas
 python-dotenv
-bcrypt
-qrcode[pil]
-watchdog
