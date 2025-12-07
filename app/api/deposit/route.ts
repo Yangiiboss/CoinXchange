@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
-import { ethers } from 'ethers';
+import { createPublicClient, http, formatEther } from 'viem';
+import { bsc } from 'viem/chains';
 
 const BSC_RPC = "https://bsc-dataseed.binance.org/";
 const CONTRACT_ADDRESS = "0x72fb93c58ab7afadbf75e982a5b6d2cb6134247b";
@@ -13,17 +14,20 @@ export async function GET(request: Request) {
     }
 
     try {
-        const provider = new ethers.JsonRpcProvider(BSC_RPC);
+        const client = createPublicClient({
+            chain: bsc,
+            transport: http(BSC_RPC)
+        });
 
         // In a real scenario, we would scan blocks for the memo in input data.
         // For this demo, we check connectivity and return active status.
-        // To implement real scanning:
-        // const block = await provider.getBlock('latest', true);
-        // ... scan transactions ...
 
         // Check balance just to ensure RPC is working
-        const balance = await provider.getBalance(CONTRACT_ADDRESS);
-        const ethBalance = ethers.formatEther(balance);
+        const balance = await client.getBalance({
+            address: CONTRACT_ADDRESS as `0x${string}`
+        });
+
+        const ethBalance = formatEther(balance);
 
         return NextResponse.json({
             status: "active",
