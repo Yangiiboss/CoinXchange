@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     "Binance P2P": marketPrice * (0.99 + Math.random() * 0.02),
     "Transak": marketPrice * (0.98 + Math.random() * 0.02),
     "Breet": marketPrice * (0.97 + Math.random() * 0.02),
-    "YellowCard": marketPrice * (0.98 + Math.random() * 0.025)
+    "CoinGecko": marketPrice * (0.98 + Math.random() * 0.025)
   };
 
   // Find best provider

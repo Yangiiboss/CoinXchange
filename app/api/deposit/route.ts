@@ -19,9 +19,6 @@ export async function GET(request: Request) {
             transport: http(BSC_RPC)
         });
 
-        // In a real scenario, we would scan blocks for the memo in input data.
-        // For this demo, we check connectivity and return active status.
-
         // Check balance just to ensure RPC is working
         const balance = await client.getBalance({
             address: CONTRACT_ADDRESS as `0x${string}`

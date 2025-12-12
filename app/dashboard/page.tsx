@@ -31,22 +31,36 @@ export default function Dashboard() {
         return () => clearTimeout(timer);
     }, [crypto, amount]);
 
+    const handleLockRate = async () => {
+        // Save transaction to Supabase
+        try {
+            await fetch('/api/transactions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    user_id: 'mock-user-id', // Replace with real auth user ID
+                    type: 'EXCHANGE',
+                    amount_crypto: amount,
+                    amount_fiat: quote.net_ngn,
+                    currency: crypto,
+                    status: 'PENDING',
+                    memo: memo
+                })
+            });
+            setStep(2);
+        } catch (e) {
+            console.error("Failed to save tx", e);
+        }
+    };
+
     return (
         <div className="min-h-screen p-4 md:p-8">
-            <header className="flex justify-between items-center mb-8">
-                <h1 className="text-2xl font-bold text-primary">NairaAI 2.0</h1>
-                <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-full bg-gray-700"></div>
-                    <span>User</span>
-                </div>
-            </header>
-
             <main className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Left Column: Input */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="glass-card p-6"
+                    className="glass-card p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-xl"
                 >
                     <h2 className="text-xl font-semibold mb-6">💱 Exchange</h2>
 
@@ -56,7 +70,7 @@ export default function Dashboard() {
                             <select
                                 value={crypto}
                                 onChange={(e) => setCrypto(e.target.value)}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-primary"
+                                className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500"
                             >
                                 {CRYPTOS.map(c => <option key={c} value={c}>{c}</option>)}
                             </select>
@@ -68,15 +82,15 @@ export default function Dashboard() {
                                 type="number"
                                 value={amount}
                                 onChange={(e) => setAmount(parseFloat(e.target.value))}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-primary"
+                                className="w-full bg-black/40 border border-white/10 rounded-lg p-3 text-white focus:outline-none focus:border-blue-500"
                             />
                         </div>
 
                         {quote && (
-                            <div className="mt-6 p-4 rounded-lg bg-primary/10 border border-primary/20">
+                            <div className="mt-6 p-4 rounded-lg bg-blue-500/10 border border-blue-500/20">
                                 <div className="flex justify-between mb-2">
                                     <span className="text-gray-300">Best Rate ({quote.provider}):</span>
-                                    <span className="font-bold text-primary">₦{quote.rate.toLocaleString()}</span>
+                                    <span className="font-bold text-blue-400">₦{quote.rate.toLocaleString()}</span>
                                 </div>
                                 <div className="flex justify-between text-sm text-gray-400 mb-4">
                                     <span>Fee (0.9%):</span>
@@ -84,14 +98,14 @@ export default function Dashboard() {
                                 </div>
                                 <div className="border-t border-white/10 pt-4 flex justify-between text-xl font-bold">
                                     <span>You Receive:</span>
-                                    <span className="text-secondary">₦{quote.net_ngn.toLocaleString()}</span>
+                                    <span className="text-green-400">₦{quote.net_ngn.toLocaleString()}</span>
                                 </div>
                             </div>
                         )}
 
                         <button
-                            onClick={() => setStep(2)}
-                            className="w-full mt-4 py-3 rounded-full bg-gradient-to-r from-primary to-secondary text-black font-bold hover:opacity-90 transition-opacity"
+                            onClick={handleLockRate}
+                            className="w-full mt-4 py-3 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 text-white font-bold hover:opacity-90 transition-opacity"
                         >
                             Lock Rate & Continue
                         </button>
@@ -102,7 +116,7 @@ export default function Dashboard() {
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="glass-card p-6 flex flex-col justify-center items-center text-center"
+                    className="glass-card p-6 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-xl flex flex-col justify-center items-center text-center"
                 >
                     {step === 1 && (
                         <div className="text-gray-400">
@@ -126,14 +140,14 @@ export default function Dashboard() {
                             <div className="space-y-4">
                                 <div>
                                     <label className="block text-xs text-gray-400 uppercase tracking-wider mb-1">Deposit Address (BEP-20)</label>
-                                    <div className="bg-black/40 p-3 rounded font-mono text-sm break-all border border-white/10">
+                                    <div className="bg-black/40 p-3 rounded font-mono text-sm break-all border border-white/10 text-gray-300">
                                         0x72fb93c58ab7afadbf75e982a5b6d2cb6134247b
                                     </div>
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs text-secondary uppercase tracking-wider mb-1">Your Unique Memo</label>
-                                    <div className="bg-secondary/20 p-3 rounded font-mono text-2xl font-bold text-secondary border border-secondary/50 tracking-widest">
+                                    <label className="block text-xs text-blue-400 uppercase tracking-wider mb-1">Your Unique Memo</label>
+                                    <div className="bg-blue-500/20 p-3 rounded font-mono text-2xl font-bold text-blue-400 border border-blue-500/50 tracking-widest">
                                         {memo}
                                     </div>
                                 </div>
@@ -142,7 +156,7 @@ export default function Dashboard() {
                             <div className="mt-8 pt-6 border-t border-white/10">
                                 <p className="text-sm text-gray-400 mb-4">Waiting for deposit...</p>
                                 <div className="w-full bg-gray-700 h-1 rounded-full overflow-hidden">
-                                    <div className="bg-primary h-full w-1/3 animate-pulse"></div>
+                                    <div className="bg-blue-500 h-full w-1/3 animate-pulse"></div>
                                 </div>
                             </div>
 

@@ -2,24 +2,35 @@ import Link from "next/link";
 
 export default function Home() {
     return (
-        <main className="flex min-h-screen flex-col items-center justify-center p-6 text-center">
-            <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary mb-4">
-                NairaAI 2.0
+        <main className="flex min-h-[calc(100vh-64px)] flex-col items-center justify-center p-4 text-center relative overflow-hidden">
+            {/* Background Gradients */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl -z-10" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-600/20 rounded-full blur-3xl -z-10" />
+
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                Crypto to Naira, <br />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
+                    Instantly.
+                </span>
             </h1>
-            <p className="text-xl text-gray-300 mb-8">
-                The Fastest Crypto-to-Naira Off-Ramp.
+
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl">
+                CoinXchange is Nigeria’s fastest off-ramp. Best rates, zero hidden fees, and instant bank payouts.
             </p>
 
-            <div className="glass-card p-8 w-full max-w-md space-y-4">
-                <h2 className="text-2xl font-semibold mb-4">Get Started</h2>
-                <Link href="/dashboard">
-                    <button className="w-full py-3 px-6 rounded-full bg-gradient-to-r from-primary to-secondary text-black font-bold hover:scale-105 transition-transform">
-                        Login with Google
-                    </button>
+            <div className="flex gap-4">
+                <Link
+                    href="/dashboard"
+                    className="px-8 py-4 rounded-full bg-white text-black font-bold hover:bg-gray-200 transition-colors"
+                >
+                    Get Started
                 </Link>
-                <div className="text-sm text-gray-400">
-                    Or <span className="underline cursor-pointer">Sign up with Email</span>
-                </div>
+                <Link
+                    href="/history"
+                    className="px-8 py-4 rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+                >
+                    View Rates
+                </Link>
             </div>
         </main>
     );
