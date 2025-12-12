@@ -32,7 +32,7 @@ export default function Dashboard() {
     }, [crypto, amount]);
 
     const handleLockRate = async () => {
-        // Save transaction to Supabase
+        // Save transaction to Database
         try {
             await fetch('/api/transactions', {
                 method: 'POST',
