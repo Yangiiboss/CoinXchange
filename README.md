@@ -27,7 +27,8 @@ The final, production-ready NairaAI 2.0. Built with Next.js 14 (Frontend) and Py
 4. **Environment Variables**:
    - `NEXTAUTH_SECRET`: Generate one (`openssl rand -base64 32`)
    - `NEXTAUTH_URL`: Your Vercel URL (e.g. `https://naira-ai.vercel.app`)
-   - `MONGODB_URI`: Your MongoDB Connection String
+   - `SUPABASE_URL`: Your Supabase Project URL
+   - `SUPABASE_ANON_KEY`: Your Supabase Anon Key
 
 ## 💻 Local Development
 
