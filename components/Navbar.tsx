@@ -24,6 +24,12 @@ export default function Navbar() {
                     </div>
 
                     <div className="flex items-center gap-4">
+                        <Link
+                            href="/login"
+                            className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
+                        >
+                            Login
+                        </Link>
                         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-purple-600"></div>
                     </div>
                 </div>
