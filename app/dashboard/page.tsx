@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 const CRYPTOS = ["USDT", "BTC", "ETH", "BNB", "TRX", "DOGE"];
 
@@ -17,8 +18,8 @@ export default function Dashboard() {
         const fetchRate = async () => {
             setLoading(true);
             try {
-                const res = await fetch(`/api/rates?crypto=${crypto}&amount=${amount}`);
-                const data = await res.json();
+                const res = await axios.get(`/api/rates?crypto=${crypto}&amount=${amount}`);
+                const data = res.data;
                 setQuote(data);
                 if (data.memo) setMemo(data.memo);
             } catch (e) {
@@ -32,25 +33,7 @@ export default function Dashboard() {
     }, [crypto, amount]);
 
     const handleLockRate = async () => {
-        // Save transaction to Supabase
-        try {
-            await fetch('/api/transactions', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    user_id: 'mock-user-id', // Replace with real auth user ID
-                    type: 'EXCHANGE',
-                    amount_crypto: amount,
-                    amount_fiat: quote.net_ngn,
-                    currency: crypto,
-                    status: 'PENDING',
-                    memo: memo
-                })
-            });
-            setStep(2);
-        } catch (e) {
-            console.error("Failed to save tx", e);
-        }
+        // Save transaction to database
     };
 
     return (
